@@ -6,4 +6,4 @@ How it works:
  1. Check the last run date
  2. Query the display resolution
  3. Download today wallpapper from yandex.ru with required resolution
- 4. Replaces the wallpaper
+ 4. Replaces the wallpaper  (SPI_SETDESKWALLPAPER)
