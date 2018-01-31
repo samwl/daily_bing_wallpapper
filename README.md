@@ -7,3 +7,4 @@ How it works:
  2. Query the display resolution
  3. Download today wallpapper from yandex.ru with required resolution
  4. Replaces the wallpaper  (SPI_SETDESKWALLPAPER)
+ 5. Save current wallpapper
