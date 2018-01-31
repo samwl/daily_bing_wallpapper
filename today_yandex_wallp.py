@@ -1,12 +1,13 @@
 """
 New_Yandex_wallpepper_every_day 
-ver 0.1
+ver 0.2
 """
 
-import datetime, os, urllib.request, ctypes
+import time, datetime, os, urllib.request, ctypes, shutil
 
 #file name with current dir:
 name_jpg = os.getcwd() + os.sep + 'tywall.jpg'
+name_save = os.getcwd() + os.sep + time.strftime('%Y%m%d') + '.jpg'
 
 #current date:
 now_date = datetime.date.today() 
@@ -15,15 +16,20 @@ now_date = datetime.date.today()
 data=open("data.txt","r")
 yday_date=data.read() 
 
-if str(now_date) > str(yday_date):
+def pars(name_arg):
+    """Download pic from yandex.ru with required resolution"""
     user32 = ctypes.windll.user32
     user32.SetProcessDPIAware()
     [width, height] = [user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)]
     url = "https://yandex.ru/images/today?size=" + str(width) + "x" + str(height)
     img = urllib.request.urlopen(url).read()
-    out = open(name_jpg, "wb")
+    out = open(name_arg, "wb")
     out.write(img)
     out.close()
+
+
+if str(now_date) > str(yday_date):
+    pars(name_jpg)
 
     #set new desk wallpaper 
     SPI_SETDESKWALLPAPER = 20 
@@ -36,3 +42,26 @@ if str(now_date) > str(yday_date):
     data.close()
 else:
     data.close()
+
+#input("Looks good? (Y/N): ") # add machine learning
+
+#saving:
+def saving():
+    """Save today wallpapper to current dir"""
+    while True:
+        print("Do you like today wallpapper? Save? (Y/N):")
+        response = input().upper()  
+        if response == "Y":
+            print("Saved: {}".format(response))
+
+            shutil.copyfile(name_jpg, name_save, follow_symlinks=True)
+            
+            print("Exit...")
+            quit()
+        elif response == "N":
+            print("Ok, exit".format(response))
+        else:
+            print("Please reinsert: {}".format(response))
+            print("   ")
+
+saving()
