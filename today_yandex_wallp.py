@@ -1,5 +1,5 @@
 """
-New_Yandex_wallpepper_every_day 
+TYW 
 ver 0.2
 """
 
@@ -60,6 +60,7 @@ def saving():
             quit()
         elif response == "N":
             print("Ok, exit".format(response))
+            quit()
         else:
             print("Please reinsert: {}".format(response))
             print("   ")
