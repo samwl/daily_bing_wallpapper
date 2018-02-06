@@ -1,0 +1,121 @@
+"""
+Today Wallpapper from Yandex
+ver. 0.4 with GUI
+
+"""
+
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QApplication, QTextEdit
+from PyQt5.QtGui import QIcon
+from PyQt5 import QtCore, QtGui, uic
+from PyQt5.QtCore import QTimer
+import sys, time, datetime, os, urllib.request, ctypes, shutil
+
+
+class Example(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def pars(self, name_arg):
+        """Download pic from yandex.ru with required resolution"""
+        self.textEdit.append("Download pic from yandex.ru with required resolution")
+        user32 = ctypes.windll.user32
+        user32.SetProcessDPIAware()
+        [width, height] = [user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)]
+        url = "https://yandex.ru/images/today?size=" + str(width) + "x" + str(height)
+        img = urllib.request.urlopen(url).read()
+        out = open(name_arg, "wb")
+        out.write(img)
+        out.close()
+        self.textEdit.append("Download new pic")
+
+    def saving(self):
+        """Save today wallpapper to current dir"""
+        self.textEdit.append("Save today wallpapper to current dir?")
+
+        shutil.copyfile(name_jpg, name_save, follow_symlinks=True)
+        self.textEdit.append("Saved")  
+
+    def set_wallpapper(self):
+        #set new desk wallpaper
+        self.textEdit.append("Set new wallpaper") 
+        SPI_SETDESKWALLPAPER = 20 
+        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, name_jpg, 0)
+        self.textEdit.append("Done")
+
+    def save_data(self):
+        y_date = datetime.date.today() 
+        data = open("data.txt","w")
+        data.write(str(y_date))
+        data.close()
+        self.textEdit.append("Log file updated") 
+
+    #file name with current dir:
+    global name_jpg
+    name_jpg = os.getcwd() + os.sep + 'tywall.jpg'
+    global name_save
+    name_save = os.getcwd() + os.sep + time.strftime('%Y%m%d') + '.jpg'
+
+    def main_f(self): 
+        with open('data.txt') as data_log:
+            yday_date = data_log.readline()
+        #checking
+            if str(datetime.date.today()) > str(yday_date):
+                self.pars(name_jpg)
+                self.set_wallpapper()
+                self.save_data()
+            else:
+                self.status_ex()
+                
+    def initUI(self):
+        # button Save
+        btn1 = QPushButton("2. Save", self)
+        btn1.clicked.connect(self.saving)
+        btn1.setGeometry(QtCore.QRect(170, 90, 100, 20))
+        # button Update
+        btn2 = QPushButton("1. Update", self)
+        btn2.clicked.connect(self.main_f)
+        btn2.setGeometry(QtCore.QRect(50, 90, 100, 20))
+
+        # UI
+        self.textEdit = QTextEdit(self)
+        self.textEdit.setGeometry(QtCore.QRect(0, 0, 320, 80))
+        self.textEdit.setObjectName("textEdit")
+  
+        self.setStyleSheet("background-color: rgb(241, 255, 231);\n"
+"border-color: rgb(120, 120, 120);\n"
+"font: 8pt \"Franklin Gothic Book\";\n")
+        self.setGeometry(300, 300, 320, 130)
+        self.setWindowTitle('Today Wallpapper from Yandex')
+        #self.setWindowIcon(QIcon('icoo.ico'))
+        self.initial_message()
+        self.show()
+
+    def buttonClicked1(self):
+        tyw.main_f()
+        sender = self.sender()
+        
+    def buttonClicked2(self):
+        tyw.saving()
+        sender = self.sender()
+
+    def initial_message(self):
+        # first message
+        self.textEdit.append("Hello!")
+        self.textEdit.append("Press 'Update' to get new wallpapper")
+        
+    def status_ex(self):
+        #autoexit func (timer on 10 sec):
+        self.textEdit.append("Installed the latest wallpapers, no update required")
+        self.textEdit.append("Exit after 5 seconds")
+        QTimer.singleShot(5000, self.quit_e)
+
+    def quit_e(self):
+        app.quit()
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    ex = Example()
+    sys.exit(app.exec_())
