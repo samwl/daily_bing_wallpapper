@@ -1,7 +1,9 @@
-# TYW
+# TYW 
 This is my first script (Python)  
   it can a bit faster update wallpaper on your pc (tested on Windows 10)
-  
+
+Now with first design of GUI
+
 How it works: 
  1. Check the last run date
  2. Query the display resolution
