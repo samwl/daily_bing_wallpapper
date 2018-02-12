@@ -73,22 +73,26 @@ class Example(QMainWindow):
         btn1 = QPushButton("2. Save", self)
         btn1.clicked.connect(self.saving)
         btn1.setGeometry(QtCore.QRect(170, 90, 100, 20))
+        btn1.setStyleSheet("background-color: rgb(255, 204, 0)")
         # button Update
         btn2 = QPushButton("1. Update", self)
         btn2.clicked.connect(self.main_f)
         btn2.setGeometry(QtCore.QRect(50, 90, 100, 20))
+        btn2.setStyleSheet("background-color: rgb(255, 204, 0)")
 
         # UI
         self.textEdit = QTextEdit(self)
         self.textEdit.setGeometry(QtCore.QRect(0, 0, 320, 80))
         self.textEdit.setObjectName("textEdit")
-  
-        self.setStyleSheet("background-color: rgb(241, 255, 231);\n"
-"border-color: rgb(120, 120, 120);\n"
-"font: 8pt \"Franklin Gothic Book\";\n")
+       
+        self.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"border-color: rgb(255, 255, 255);\n"
+"font: 10pt \"Calibri\";\n")
         self.setGeometry(300, 300, 320, 130)
         self.setWindowTitle('Today Wallpapper from Yandex')
-        #self.setWindowIcon(QIcon('icoo.ico'))
+        self.setWindowIcon(QIcon('icoo.ico'))
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlags(QtCore.Qt.Dialog)
         self.initial_message()
         self.show()
 
@@ -118,4 +122,4 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     ex = Example()
-    sys.exit(app.exec_())
+sys.exit(app.exec_())
