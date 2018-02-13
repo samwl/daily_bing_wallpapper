@@ -1,6 +1,6 @@
 """
 Today Wallpapper from Yandex
-ver. 0.4 with GUI
+ver. 0.41 with GUI
 
 """
 
@@ -33,9 +33,9 @@ class Example(QMainWindow):
     def saving(self):
         """Save today wallpapper to current dir"""
         self.textEdit.append("Save today wallpapper to current dir?")
-
         shutil.copyfile(name_jpg, name_save, follow_symlinks=True)
-        self.textEdit.append("Saved")  
+        self.textEdit.append("Saved")
+        self.status_ex()
 
     def set_wallpapper(self):
         #set new desk wallpaper
@@ -66,6 +66,7 @@ class Example(QMainWindow):
                 self.set_wallpapper()
                 self.save_data()
             else:
+                self.textEdit.append("Installed the latest wallpapers, no update required")
                 self.status_ex()
                 
     def initUI(self):
@@ -110,8 +111,7 @@ class Example(QMainWindow):
         self.textEdit.append("Press 'Update' to get new wallpapper")
         
     def status_ex(self):
-        #autoexit func (timer on 10 sec):
-        self.textEdit.append("Installed the latest wallpapers, no update required")
+        #autoexit func (timer on 5 sec):
         self.textEdit.append("Exit after 5 seconds")
         QTimer.singleShot(5000, self.quit_e)
 
