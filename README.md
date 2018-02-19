@@ -1,9 +1,9 @@
 # TYW 
 <img align="left" width="100" height="100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQq150AWUFO42gO4wXpckFok7LKZvdbE1oKmM-e7-F72H8UaED">
 A tiny program (developed with Python)
-it can slightly update the wallpaper on your PC (tested on Windows 10)
+it can be a little faster to update the wallpaper on your PC (tested on Windows 10)
 
-Stable version with installation
+<i>Stable version with installation</i>
 
 
 
