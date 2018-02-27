@@ -14,3 +14,9 @@ it can be a little faster to update the wallpaper on your PC (tested on Windows 
 3. Loads today's wallpapers from yandex.ru with the required resolution
 4. Replaces wallpaper (SPI_SETDESKWALLPAPER)
 5. And also you can save the current wallpaper
+
+<i> Just one click for new wallpapper </i> 
+
+
+<img align="left" width="269" height="189" src="https://raw.githubusercontent.com/samwl/today_yandex_wallpapper/master/2018-02-27_13-25-17.png">
+
