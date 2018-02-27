@@ -1,121 +1,99 @@
 """
 Today Wallpapper from Yandex
-ver. 0.42 with GUI
+ver. 0.50
 
 """
 
-from PyQt5.QtWidgets import QMainWindow, QPushButton, QApplication, QTextEdit
+from PyQt5.QtWidgets import QMainWindow, QWidget, QApplication, QPushButton, QLabel
 from PyQt5.QtGui import QIcon
-from PyQt5 import QtCore, QtGui, uic
-from PyQt5.QtCore import QTimer
+from PyQt5 import QtCore
+from PyQt5.QtCore import QTimer, Qt
 import sys, time, datetime, os, urllib.request, ctypes, shutil
-
-
-
-class Example(QMainWindow):
+             
+             
+class TYW(QMainWindow):
 
     def __init__(self):
         super().__init__()
         self.initUI()
-
-    def pars(self, name_arg):
-        """Download pic from yandex.ru with required resolution"""
-        self.textEdit.append("Download pic from yandex.ru with required resolution")
-        user32 = ctypes.windll.user32
-        user32.SetProcessDPIAware()
-        [width, height] = [user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)]
-        url = "https://yandex.ru/images/today?size=" + str(width) + "x" + str(height)
-        img = urllib.request.urlopen(url).read()
-        out = open(name_arg, "wb")
-        out.write(img)
-        out.close()
-        self.textEdit.append("Download new pic")
-
-    def saving(self):
-        """Save today wallpapper to current dir"""
-        self.textEdit.append("Save today wallpapper to current dir?")
-        shutil.copyfile(name_jpg, name_save, follow_symlinks=True)
-        self.textEdit.append("Saved")
-        self.status_ex()
-
-    def set_wallpapper(self):
-        #set new desk wallpaper
-        self.textEdit.append("Set new wallpaper") 
-        SPI_SETDESKWALLPAPER = 20 
-        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, name_jpg, 0)
-        self.textEdit.append("Done")
-
-    def save_data(self):
-        y_date = datetime.date.today() 
-        data = open("data.txt","w")
-        data.write(str(y_date))
-        data.close()
-        self.textEdit.append("Log file updated") 
-
-    #file name with current dir:
-    global name_jpg
-    name_jpg = os.getcwd() + os.sep + 'tywall.jpg'
-    global name_save
-    name_save = os.getcwd() + os.sep + time.strftime('%Y%m%d') + '.jpg'
-
-    def main_f(self): 
-        with open('data.txt') as data_log:
-            yday_date = data_log.readline()
-        #checking
-            if str(datetime.date.today()) > str(yday_date):
-                self.pars(name_jpg)
-                self.set_wallpapper()
-                self.save_data()
-                self.show_btn1()
-            else:
-                self.textEdit.append("Installed the latest wallpapers, no update required")
-                self.status_ex()
-                
+        
     def initUI(self):
-        # button Save
-        btn1 = QPushButton("Save", self)
-        btn1.clicked.connect(self.saving)
-        btn1.setGeometry(QtCore.QRect(170, 90, 100, 20))
-        btn1.setStyleSheet("""
-    QPushButton:hover { background-color: rgb(255, 204, 0) }
-    QPushButton:!hover { background-color: rgb(253, 232, 89) }
-    QPushButton:pressed { background-color: rgb(254, 251, 208); }
-""")
-        btn1.hide()
-        self.btn1 = btn1
         
-        # button Update
-        btn2 = QPushButton("Update", self)
-        btn2.clicked.connect(self.main_f)
-        btn2.setGeometry(QtCore.QRect(50, 90, 100, 20))
-        btn2.setStyleSheet("""
-    QPushButton:hover { background-color: rgb(255, 204, 0) }
-    QPushButton:!hover { background-color: rgb(253, 232, 89) }
-    QPushButton:pressed { background-color: rgb(254, 251, 208); }
-""")
-        
+        # button 1
+        self.button1 = QPushButton("Update", self)
+        self.button1.clicked.connect(self.main_f)
+        self.button1.move(10, 45)
+        self.button1.setStyleSheet("""
+                    QPushButton:hover { color: #333;
+                        border: 1px solid #7E3FF0;
+                        border-radius: 0px;
+                        padding: 0px;
+                        background: #fff;
+                        min-width: 80px; }
+                    QPushButton:!hover {;
+                        border: 1px solid #555;
+                        border-radius: 0px;
+                        padding: 0px;
+                        background: rgb(253, 232, 89);     
+                        min-width: 80px;}
+                    QPushButton:pressed {; 
+                        border: 1px solid #555;
+                        border-radius: 0px;
+                        padding: 0px;
+                        background: rgb(254, 251, 208);
+                        min-width: 80px;}   
+                                    """)
 
-        # UI
-        self.textEdit = QTextEdit(self)
-        self.textEdit.setGeometry(QtCore.QRect(0, 0, 320, 80))
-        self.textEdit.setObjectName("textEdit")
+        # button 2
+        self.button2 = QPushButton("Save", self)
+        self.button2.clicked.connect(self.saving)
+        self.button2.move(10, 45)
+        self.button2.setStyleSheet("""
+                    QPushButton:hover { color: #333;
+                        border: 1px solid #7E3FF0;
+                        border-radius: 0px;
+                        padding: 0px;
+                        background: #fff;
+                        min-width: 80px; }
+                    QPushButton:!hover {;
+                        border: 1px solid #555;
+                        border-radius: 0px;
+                        padding: 0px;
+                        background: rgb(253, 232, 89);
+                        min-width: 80px;}
+                    QPushButton:pressed {; 
+                        border: 1px solid #555;
+                        border-radius: 0px;
+                        padding: 0px;
+                        background: rgb(254, 251, 208);
+                        min-width: 80px;} 
+                                    """)
+        self.button2.hide()
 
+        # text label
+        self.label = QLabel(self)
+        self.label.setGeometry(QtCore.QRect(20, 10, 200, 30))
+
+        # window
+        self.setGeometry(300, 300, 230, 93)
+        self.setFixedSize(230, 93)
         self.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"border-color: rgb(255, 255, 255);\n"
-"font: 10pt \"Calibri\";\n")
-        self.setGeometry(300, 300, 320, 130)
-        self.setFixedSize(320, 130)
-        self.setWindowTitle('Today Wallpapper from Yandex')
+                            "font: 9pt \"Segoe UI\";")
+        self.setWindowTitle('TYW')
         self.setWindowIcon(QIcon('icoo.ico'))
-        self.statusBar().showMessage('ver. 0.42')
-        self.statusBar().setStyleSheet("font: 7pt \"Calibri\";\n")
+        self.statusBar().showMessage('ver. 0.50')
+        self.statusBar().setStyleSheet("font: 6pt \"Segoe UI\";\n")
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setWindowFlags(QtCore.Qt.Dialog)
         self.initial_message()
         self.show()
 
-    def show_btn1(self):
-        self.btn1.show()
+    def show_save_button(self):
+        self.button2.show()
+
+    def initial_message(self):
+        # first message №1
+        self.label.setText("Hello! Press 'Update' to get \ntoday wallpapper")
 
     def buttonClicked1(self):
         tyw.main_f()
@@ -125,21 +103,79 @@ class Example(QMainWindow):
         tyw.saving()
         sender = self.sender()
 
-    def initial_message(self):
-        # first message
-        self.textEdit.append("Hello!")
-        self.textEdit.append("Press 'Update' to get new wallpapper")
-        
     def status_ex(self):
         #autoexit func (timer on 5 sec):
-        self.textEdit.append("Exit after 5 seconds")
-        QTimer.singleShot(5000, self.quit_e)
+        self.label.setText("Exit after 5 seconds")
+        QTimer.singleShot(2000, self.quit_e)
 
     def quit_e(self):
         app.quit()
 
-if __name__ == '__main__':
+    def pars(self, name_arg):
+        """Download pic from yandex.ru with required resolution"""
+        user32 = ctypes.windll.user32
+        user32.SetProcessDPIAware()
+        [width, height] = [user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)]
+        url = "https://yandex.ru/images/today?size=" + str(width) + "x" + str(height)
+        img = urllib.request.urlopen(url).read()
+        out = open(name_arg, "wb")
+        out.write(img)
+        out.close()
 
-    app = QApplication(sys.argv)
-    ex = Example()
-sys.exit(app.exec_())
+    def saving(self):
+        """Save today wallpapper to current dir"""
+        list_d = os.listdir()
+        a_folder = "saved_wallpapper"
+        if a_folder in list_d:
+            shutil.copyfile(name_jpg, name_save, follow_symlinks=True)
+        else:
+            path = os.getcwd() + os.sep + "/saved_wallpapper"
+            os.mkdir(path)
+            shutil.copyfile(name_jpg, name_save, follow_symlinks=True)
+        self.label.setText("Saved")
+        QTimer.singleShot(1000, self.status_ex) 
+
+    def set_wallpapper(self):
+        """set new desk wallpaper"""
+        SPI_SETDESKWALLPAPER = 20 
+        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, name_jpg, 0)
+
+    def save_data(self):
+        """Save log"""
+        y_date = datetime.date.today() 
+        data = open("data.txt","w")
+        data.write(str(y_date))
+        data.close()
+
+    #file name with current dir:
+    global name_jpg
+    name_jpg = os.getcwd() + os.sep + 'tywall.jpg'
+    global name_save
+    name_save = os.getcwd() + os.sep + '/saved_wallpapper/' + time.strftime('%Y%m%d') + '.jpg'
+
+    def main_f(self): 
+        with open('data.txt') as data_log:
+            yday_date = data_log.readline()
+        #checking
+            if str(datetime.date.today()) > str(yday_date):
+                self.pars(name_jpg)
+                self.set_wallpapper()
+                self.save_data()
+                self.show_save_button()
+                self.label.setText("Updated")
+                self.button1.hide()
+                QTimer.singleShot(1500, self.message_s)
+            else:
+                self.label.setText("Installed the latest wallpapers")
+                QTimer.singleShot(3000, self.status_ex)
+
+    def message_s(self):
+        self.label.setText("Do you like it? Save?")
+                   
+
+if __name__ == "__main__":
+    
+    app = QApplication([])
+    ex = TYW()
+    ex.show()
+    app.exec_()
