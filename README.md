@@ -18,5 +18,5 @@ it can be a little faster to update the wallpaper on your PC (tested on Windows 
 <i> Just one click for new wallpapper </i> 
 
 
-<img align="left" width="269" height="189" src="https://raw.githubusercontent.com/samwl/today_yandex_wallpapper/master/2018-02-27_13-25-17.png">
+<img align="left" width="293" height="189" src="https://raw.githubusercontent.com/samwl/today_yandex_wallpapper/master/2018-02-27_13-25-17.png">
 
