@@ -3,9 +3,10 @@
 A tiny program (developed with Python)
 it can be a little faster to update the wallpaper on your PC (tested on Windows 10)
 
-
-
-
+<p>
+<br>
+  </br>
+</p>
 
 <i>Stable version (0.61)</i>
 
