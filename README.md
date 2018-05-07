@@ -1,7 +1,7 @@
 # Daily wallpapper from bing.com 
 <img align="left" width="100" height="100" src="https://raw.githubusercontent.com/samwl/daily_bing_wallpapper/master/img/icoo.ico">
-A tiny program (developed with Python)
-it can be a little faster to update the wallpaper on your PC (tested on Windows 10)
+<p>A tiny program (developed with Python)
+it can be a little faster to update the wallpaper on your PC</p> <p>(tested on Windows 10)</p>
 
 <p>
 <br>
