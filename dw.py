@@ -253,6 +253,7 @@ class TYW(QMainWindow):
 
     def save_data(self):
         """Save current change"""
+        data = self.read_db()
         data[0] = str(datetime.date.today()) 
         self.write_db(data)
 
@@ -325,7 +326,7 @@ class TYW(QMainWindow):
     def return_def_wall(self):
         """Return to default wall"""
         data = self.read_db()
-        ctypes.windll.user32.SystemParametersInfoW(20, 0, data[1], 0)
+        ctypes.windll.user32.SystemParametersInfoW(20, 0, data[2], 0)
         data[0] = '2010-00-00' 
         self.write_db(data)
         QTimer.singleShot(1000, self.status_ex)
@@ -336,7 +337,7 @@ class TYW(QMainWindow):
         dir_name = os.path.dirname(fname)
         file_name = os.path.basename(fname)    
         data = self.read_db()
-        data[1] = dir_name + '/' + file_name
+        data[2] = dir_name + '/' + file_name
         self.write_db(data)           
 
 if __name__ == "__main__":
